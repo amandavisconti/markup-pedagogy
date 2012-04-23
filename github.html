@@ -27,7 +27,42 @@
       <section>
         <h3>Help with GitHub</h3>
 
-<p>New page will appear here soon.</p>
+Installing GitHub and Cloning Files to Your Computer
+
+    GitHub (follow the instructions the site gives you to set up an account)
+        At one point, you’ll need to find a hidden file. To do this, open your terminal and input
+
+defaults write com.apple.Finder AppleShowAllFiles TRUE
+
+killall Finder
+
+(hit enter after “TRUE” and after “Finder”), then navigate  to your user directory (e.g. /amandavisconti) and you should see a folder called .ssh with the file you need inside it. To hide all those . files again, enter the following in your terminal (hit enter after “FALSE” and after “Finder”):
+
+defaults write com.apple.Finder AppleShowAllFiles FALSE
+
+killall Finder
+
+    The GitHub for Mac client (download and install on your laptop; makes things easier!)
+    When you have a GitHub account, have asked Amanda or Travis to add you to the SGA repository, and have set up the GitHub for Mac client (if you’re on a Mac), you’ll want to clone the umd-mith/sg-data repository to your computer. Then, you can navigate to the umd-mith/sg-data/data/eng738t/tei repository, find the file you want to work on, and open it in Oxygen.
+    These XML files are stubs--that is, they’ve been prepared with some header information that includes code to pull in the SGA schema, so no need to load anything but the XML file you’re working on. Note that you’ll probably need to add the partOf attribute inside <surface> (cntrl+f “surface” to find the discussion in our question list below).
+
+Pushing Your Work Back to GitHub
+
+    Make sure your changes have been made to a file that appeared on your computer when you cloned the repository via the GitHub for Mac client; if you just download a file straight from the GitHub.com site and make changes to it, those changes won’t show up in your GitHub for Mac client.
+    Open up your GitHub for Mac client and look on the lefthand side of the client's screen; you want to be in the “changes” view (the second thing in the lefthand menu). This will show you something like in this screenshot:
+
+    If you've made any changes to the file you've cloned, you will see something like in this second screenshot; the client has noticed you've made changes to a file in the repository on your local copy of the files, and wants to push these changes to the public version of the repository:
+    Type a brief note about what your changes are in the "commit summary field" (e.g. "Edited lines 1-9"). You can also write more information (only if needed) in the extended description field.
+    Click the "commit" button above those fields.
+    Once the commit is done (should be very quickly), look down under "Unsynced Commits" and click "Sync".
+    Navigate to the SGA repository on GitHub.com and make sure your changes show up there.
+
+Asking Questions of SGA Staff via GitHub
+
+    After you push to GitHub, navigate to https://github.com/umd-mith/sg-data and look for the tabs around the middle of the page that say Files, Commits, and Branches. Click on Commits.
+    Find your recent commit in the list (the one where you made a change that didn't validate); on the far right of this item, click on the rectangle containing a number and an arrow (not the "browse code" link, but right over it).
+    Find a line that gives an example of what you're questioning and hover your cursor over it; a + icon will appear on its far left. Click on the + icon and enter your question in the field.
+    Before clicking the "comment on this line" button, make sure to enter @username of anyone you want to see your question (this emails those people so they know you have a question).
 
 <p>By Amanda Visconti (<a href="https://github.com/amandavisconti" class="user-mention">@amandavisconti</a>)</p>
       </section>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+       <title>Team MARKUP's Documentation for SGA Student Encoders</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="http://amandavisconti.github.com/markup-pedagogy">Team MARKUP's Documentation for SGA Student Encoders</a></h1>
+        <p>Documentation from the Spring 2012 Student Encoders of the Shelley-Godwin Archive (aka Team MARKUP)</p>
+        <p class="view"><a href="https://github.com/amandavisconti/markup-pedagogy">View the Project on GitHub <small>amandavisconti/markup-pedagogy</small></a></p>
+        <ul>
+          <li><a href="http://amandavisconti.github.com/markup-pedagogy/github">Using GitHub for Markup</a></li>
+          <li><a href="http://amandavisconti.github.com/markup-pedagogy/questions">Markup Q & A</a></li>
+          <li><a href="http://amandavisconti.github.com/markup-pedagogy/othernotes">Other Markup Notes (Hints & Tips)</a></li>
+        </ul>
+        <ul>
+          <li><a href="#">Team Blog Post (soon!)</a></li>
+          <li><a href="http://www.literaturegeek.com/2012/04/19/how-can-you-love-a-work-if-you-dont-know-it-six-lessons-from-team-markup/">My Post on the Markup Experience</a></li>
+          <li><a href="http://amandavisconti.github.com/markup-pedagogy/QandA.pdf">Download Q&A PDF (easier reading)</a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>Other Encoding Notes</h3>
+
+Mary vs. Percy! (recognizing hands)
+
+    Percy's i's have dots that follow them, Mary's are right over the i
+    Mary's final d's are looped
+    Mary's r's are topped, Percy's r's are point or look like print r
+    Mary writes very flat r's on top and loops her d's
+    Percy's writing tends to be more slanted than Mary's
+
+General TEI Notes:
+
+    We’re generally trying to encode things that aren’t presentational (so, not “there are quote marks here and there”, but “this whole block is a quotation” and someone will come along later and say “oh, quote blocks should be encased visually in quote marks”). “The encoding of documents for SGA privileges recording information about the physical document rather than about a ‘text’”: treat each page as a file existing alone in the universe, not as part of a greater novel (SGA schema).
+    So, record physical elements (lines on page) and use milestone to show things like page and paragraph ends
+        E.g. for paragraph ends, put <milestone unit="paragraph"/> just before the closing </line> tag
+    Don’t forget to always close your tags
+    Cntrl + e surrounds the text you’ve highlighted with the beginning and ending tag of your choice
+    If you find mistakes in the transcription, make a note in the XML doc. so Neil can know and verify it later. This information can be really valuable. Do double check to make sure they are mistakes. 
+
+Frequently Useful TEI Tags
+Please add freely to this list!
+
+    http://umd-mith.github.com/sg-data/docs/ (the SGA markup glossary--use this schema when doing your markup)
+    <line></line> for every line
+
+    <zone></zone> we should use different zones for main text, marginal comments, and page/chapter/volume numbers (“By convention, page numbering or similar kinds of notes occurring at the top of a page should be placed within their own zone, and this should be the first zone on the page.”) Follow this order of precedence when encoding zones: notes at top of page (page numbering, chapter/volume numbers) go first, then main text, then marginal comments, than numbers at bottom of page.
+
+        Every piece of marginalia should have its own zone.
+        Don’t forget to add an attribute to your zone (e.g. <zone type="pagination">). You should always have something like <zone type=”main”>, not just plain <zone>.
+    <del> is for short deleted text (words and phrases), for example short strike-outs:
+        <del rend=”strikethrough”></del>
+    <delSpan> is for deletions longer than words and phrases
+    <add> is for any text added in around the main text such as
+        <add place=”superlinear”></add>
+    <damage> is for areas obscured by e.g. water damage
+    use tags for some specific entities like dates, letter salutations and valedictions, poetry verses?
+
+    For places that are obscured, look at <unclear>, <supplied>, and <gap> (each indicates a different type of obscurity): this page describes when to use what
+
+    Validate your pages in Oxygen (go to Document > validate > validate and look at the bottom of the screen for a list of errors) before pushing them to GitHub.
+    We're now using unicode for the ampersand (&), caret (^), and em dash (-). These codes are:
+        ampersand = &#x0026;
+        caret = <metamark>&#x2038;</metamark>
+        em dash = &#x2014;
+    Use <mod resp="#pbs"> instead of <mod resp="PBS">
+        Now per email of 4-2-2012 (from Trevor, forwarded to Team by Amanda V.: Responsibility is to be attributed only to additions (to be cautious about who did the deletions); and the “resp” tag is bumped to the lowest markup level available & not used to describe “mod” but rather “add”:
+            So, Old way:
+                <mod resp=”#pbs><del>something crossed out</del><add place=”superlinear”>something inserted in Percy’s hand</add></mod>
+            And New way:
+                <mod><del>something crossed out</del><add resp=”#pbs” place=”superlinear”>something inserted in Percy’s hand</add></mod>
+    The way the GoogleDoc describes encoding marginal doodles now validates.
+    In general, encode horizontal lines across the page that are acting as dividers (not deletions) as <metamark rend="horizontal line"></metamark>. An example of a page needing that encoding is http://sga.mith.org/eng738t/ox-ms_abinger_c57-0009.jpg
+    Breaking up words: We are, for now, going ahead and breaking up words when
+        1) a word stretches from the end of one line onto another:
+
+<line>Hey, here's an exa</line>
+
+<line>mple of a correct word extending over two lines!</line>
+
+    2) a deletion or insertion occurs in the middle of a word:
+
+<line>I forgot the "e" in the word el<add place="superlinear">e</add>phant</line>
+
+    <mod> gives some more info about the line
+        <mod resp=”#pbs”></mod>
+        or, in rare cases when an addition runs from one line to the next or from the end of a line into the far left margin (in that case, just use <mod></mod>; don’t use any type on the mod)
+        Stop using and remove all use of the <mod> tag, except for <mod resp=”#pbs”> and in the rare case when an addition begins on one line and runs into the next line or left-margin. Just use plain <mod> for this; don't use <mod type=?> any more. That is, DO NOT use <mod type=”subst”>, <mod type=”additions”>, or <mod type=”deletions”>.
+    Use <del rend="strikethrough">, never overstrike
+    <figure><desc>PBS doodle or sketch</desc></figure>
+
+<p><strong>GitHub Pages and Documentation</strong> written by Team MARKUP Organizer Amanda Visconti (<a href="https://github.com/amandavisconti" class="user-mention">@amandavisconti</a>), <em>except for the</em></p>
+
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/amandavisconti">amandavisconti</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
